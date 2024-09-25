@@ -7,44 +7,73 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <h1>Number System Converter & Calculator</h1>
     <div class="container">
-      <h1>Number System Converter & Binary Calculator</h1>
-
       <!-- Conversion Section -->
-      <div class="conversion-section">
+      <div id="conversion-section" class="section">
         <h2>Convert Between Number Systems</h2>
         <label for="input-number">Enter the number:</label>
-        <input type="text" id="input-number" placeholder="Enter number" />
-
+        <input
+          type="text"
+          id="input-number"
+          placeholder="Enter number"
+          pattern="[0-9A-Fa-f]+"
+          title="Enter a valid number (0-9 for decimal, 0-1 for binary, 0-7 for octal, 0-9 and A-F for hexadecimal)"
+        />
         <label for="conversion-type">Select Conversion Type:</label>
         <select id="conversion-type">
-          <option value="decimal-binary">Decimal to Binary</option>
-          <option value="binary-decimal">Binary to Decimal</option>
-          <option value="decimal-octal">Decimal to Octal</option>
-          <option value="octal-decimal">Octal to Decimal</option>
-          <option value="decimal-hexadecimal">Decimal to Hexadecimal</option>
-          <option value="hexadecimal-decimal">Hexadecimal to Decimal</option>
-          <option value="decimal-gray">Decimal to Gray Code</option>
-          <option value="gray-decimal">Gray Code to Decimal</option>
-          <option value="decimal-bcd">Decimal to BCD</option>
-          <option value="bcd-decimal">BCD to Decimal</option>
-          <option value="decimal-excess">Decimal to Excess-3</option>
-          <option value="excess-decimal">Excess-3 to Decimal</option>
+          <optgroup label="Decimal">
+            <option value="decimal-binary">Decimal to Binary</option>
+            <option value="decimal-octal">Decimal to Octal</option>
+            <option value="decimal-hexadecimal">Decimal to Hexadecimal</option>
+            <option value="decimal-gray">Decimal to Gray Code</option>
+            <option value="decimal-bcd">Decimal to BCD</option>
+            <option value="decimal-excess">Decimal to Excess-3</option>
+          </optgroup>
+          <optgroup label="Binary">
+            <option value="binary-decimal">Binary to Decimal</option>
+            <option value="binary-octal">Binary to Octal</option>
+            <option value="binary-hexadecimal">Binary to Hexadecimal</option>
+          </optgroup>
+          <optgroup label="Octal">
+            <option value="octal-decimal">Octal to Decimal</option>
+            <option value="octal-binary">Octal to Binary</option>
+            <option value="octal-hexadecimal">Octal to Hexadecimal</option>
+          </optgroup>
+          <optgroup label="Hexadecimal">
+            <option value="hexadecimal-decimal">Hexadecimal to Decimal</option>
+            <option value="hexadecimal-binary">Hexadecimal to Binary</option>
+            <option value="hexadecimal-octal">Hexadecimal to Octal</option>
+          </optgroup>
+          <optgroup label="Special">
+            <option value="gray-decimal">Gray Code to Decimal</option>
+            <option value="bcd-decimal">BCD to Decimal</option>
+            <option value="excess-decimal">Excess-3 to Decimal</option>
+          </optgroup>
         </select>
-
         <button onclick="performConversion()">Convert</button>
-        <p>Converted Value: <span id="conversion-result"></span></p>
+        <p id="res">Converted Value: <span id="conversion-result"></span></p>
       </div>
 
       <!-- Binary Operation Section -->
-      <div class="operation-section">
+      <div id="binary-operation-section" class="section">
         <h2>Binary Arithmetic Operations</h2>
         <label for="binary-num1">Enter first binary number:</label>
-        <input type="text" id="binary-num1" placeholder="Enter binary number" />
-
+        <input
+          type="text"
+          id="binary-num1"
+          required
+          placeholder="Enter binary number"
+          pattern="[01]+"
+          title="Enter a valid binary number (0 or 1)"
+        />
         <label for="binary-num2">Enter second binary number:</label>
-        <input type="text" id="binary-num2" placeholder="Enter binary number" />
-
+        <input
+          type="text"
+          id="binary-num2"
+          required
+          placeholder="Enter binary number"
+        />
         <label for="operation-type">Select Operation:</label>
         <select id="operation-type">
           <option value="addition">Binary Addition</option>
@@ -52,30 +81,57 @@
           <option value="multiplication">Binary Multiplication</option>
           <option value="division">Binary Division</option>
         </select>
-
         <button onclick="performOperation()">Calculate</button>
-        <p>Result: <span id="operation-result"></span></p>
+        <p id="res">Result: <span id="operation-result"></span></p>
       </div>
 
-      <!-- BCD Operations -->
-      <div class="bcd-section">
+      <!-- BCD Operations Section -->
+      <div id="bcd-section" class="section">
         <h2>BCD Arithmetic Operations</h2>
         <label for="bcd-num1">Enter first BCD number:</label>
-        <input type="text" id="bcd-num1" placeholder="Enter BCD number" />
-
+        <input
+          type="text"
+          id="bcd-num1"
+          placeholder="Enter BCD number"
+          pattern="([0-9]{4}\s*)*"
+          title="Enter a valid BCD number (groups of 4 digits, each digit 0-9)"
+        />
         <label for="bcd-num2">Enter second BCD number:</label>
-        <input type="text" id="bcd-num2" placeholder="Enter BCD number" />
-
+        <input
+          type="text"
+          id="bcd-num2"
+          placeholder="Enter BCD number"
+          pattern="([0-9]{4}\s*)*"
+          title="Enter a valid BCD number (groups of 4 digits, each digit 0-9)"
+        />
         <label for="bcd-operation">Select BCD Operation:</label>
         <select id="bcd-operation">
           <option value="bcd-addition">BCD Addition</option>
           <option value="bcd-subtraction">BCD Subtraction</option>
         </select>
-
         <button onclick="performBCDOperation()">Calculate</button>
-        <p>BCD Result: <span id="bcd-result"></span></p>
+        <p id="res">BCD Result: <span id="bcd-result"></span></p>
       </div>
     </div>
+
+    <!-- Floating Navbar -->
+    <nav class="floating-navbar">
+      <ul>
+        <li>
+          <button onclick="showSection('conversion-section')">
+            Conversion
+          </button>
+        </li>
+        <li>
+          <button onclick="showSection('binary-operation-section')">
+            Binary Operations
+          </button>
+        </li>
+        <li>
+          <button onclick="showSection('bcd-section')">BCD Operations</button>
+        </li>
+      </ul>
+    </nav>
 
     <script src="script.js"></script>
   </body>
